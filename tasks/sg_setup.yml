@@ -10,7 +10,7 @@
     vpc_id: "{{ item.value.aws_acct_vpc_id }}"
     region: "{{ item.value.aws_region | default('us-west-2') }}"
     rules:
-      "{{ item.value.rules }}"
+      "{{ item.value.rules | default([])}}"
     rules_egress:
-      "{{ item.value.rules_egress | default([]) }}"
+      "{{ item.value.rules_egress | default( [{'proto': 'all', 'cidr_ip': '0.0.0.0/0'}] ) }}"
   with_dict: sg_settings
